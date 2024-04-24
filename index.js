@@ -6,11 +6,14 @@ const server = http.createServer(async (req, res) => {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
-      await page.goto('https://jacoblind.me/resume', { waitUntil: 'networkidle2' });
-      await page.setViewport({ width: 1080, height: 1024 });
+      await page.goto('https://jacoblind.me/resume/download', { waitUntil: 'networkidle2' });
+      await page.setViewport({ width: 794, height: 1123 });
 
       // Generate PDF and get it as a buffer
-      const pdfBuffer = await page.pdf({ printBackground: true });
+      const pdfBuffer = await page.pdf({ 
+        printBackground: true,
+        format: 'A4'
+      });
       await browser.close();
 
       // Set headers for PDF download
