@@ -4,7 +4,10 @@ import puppeteer from 'puppeteer';
 const server = http.createServer(async (req, res) => {
   if (req.url === '/generate-pdf') {
     try {
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/google-chrome',
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
       const page = await browser.newPage();
       await page.goto('https://jacoblind.me/resume/download', { waitUntil: 'networkidle2' });
       await page.setViewport({ width: 794, height: 1123 });
